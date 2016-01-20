@@ -1,0 +1,13 @@
+dist/
+node_modules/
+.gulp-scss-cache/
+.idea/
+.test_user/
+localDb/
+remoteDb/
+coverage/
+.DS_Store/
+logs/
+url2/
+server/logs/
+logs/
