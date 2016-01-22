@@ -1,0 +1,23 @@
+.calButton{
+    width:54px;
+    background-color: #3385ff;
+    font-size: 20;
+    color:white;
+    margin:5px;
+    border-radius: 4px;
+}
+
+.equationDisplay{
+    border: 1px solid black;
+    height: 40px;
+    margin: 5px;
+    border-radius: 4px;
+    padding-to: 8px;
+    font-size: 24px;
+}
+
+.main {
+    width: 320px;
+    margin: 0 auto;
+    margin-top: 200px;
+}
