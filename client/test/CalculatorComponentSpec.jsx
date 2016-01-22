@@ -3,12 +3,20 @@ import { CalculatorComponent } from "../src/CalculatorComponent.jsx";
 import { assert } from "chai";
 import TestUtils from "react-addons-test-utils";
 import React from "react";
+import { List } from "immutable";
+
 
 describe("CalculatorComponent", () => {
     let calculatorComponent = null;
     before("CalculatorComponent", () => {
+        let props = {
+            "result": {
+                "equation": List(),
+                "result": "0"
+            }
+        }
         calculatorComponent = TestUtils.renderIntoDocument(
-            <CalculatorComponent dispatch={()=>{""}}/>
+            <CalculatorComponent result={props.result} dispatch={()=>{""}}/>
         );
     });
 

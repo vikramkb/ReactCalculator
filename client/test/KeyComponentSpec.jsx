@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 import KeyActions from "../src/KeyActions.js";
 import sinon from "sinon";
 
-describe.only("KeyComponent", () => {
+describe("KeyComponent", () => {
     let props = null, keyComponent = null;
     before("KeyComponent", () => {
         props = {
@@ -35,23 +35,23 @@ describe.only("KeyComponent", () => {
     });
 
     it("button click should dispatch key pressed action", (done) => {
+        let dispatch = () => {};
         let keyActionsClickMock = sinon.mock(KeyActions).expects("click");
-        keyActionsClickMock.withArgs("1");
+        keyActionsClickMock.withArgs(dispatch, "1");
 
         props = {
             "key": "1",
-            "dispatch": (callback) => {
-                callback;
-                keyActionsClickMock.verify();
-                KeyActions.click.restore();
-                done();
-            }
+            "dispatch": () => {}
         };
         let keyComponent1 = TestUtils.renderIntoDocument(
-            <KeyComponent keyChar={props.key} dispatch={props.dispatch} />
+            <KeyComponent keyChar={props.key} dispatch={dispatch} />
         );
 
         TestUtils.Simulate.click(keyComponent1.refs.key1);
+        keyActionsClickMock.verify();
+        KeyActions.click.restore();
+        done();
+
     });
 
 });

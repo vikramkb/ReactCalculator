@@ -1,15 +1,17 @@
+/*eslint new-cap:0*/
 "use strict";
 import ResultComponent from "../src/ResultComponent.jsx";
 import { assert } from "chai";
 import TestUtils from "react-addons-test-utils";
 import React from "react";
 import ReactDOM from "react-dom";
+import { List } from "immutable";
 
 describe("ResultComponent", () => {
     let props = null, keyBoardComponent = null;
     before("ResultComponent", () => {
         props = {
-            "equation": "1+2",
+            "equation": List([1, "+", 2]),
             "result": "3"
         };
         keyBoardComponent = TestUtils.renderIntoDocument(

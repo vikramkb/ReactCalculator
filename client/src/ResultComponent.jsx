@@ -5,7 +5,6 @@ import React, { PropTypes } from "react";
 export default class ResultComponent extends React.Component {
 
     render() {
-        console.log(this.props);
         return (
             <div>
                 <div ref="result" className="equationDisplay">{this.props.result}</div>
