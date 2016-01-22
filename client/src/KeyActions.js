@@ -1,17 +1,18 @@
 import { result } from "./CalculatorReducer.js";
+export const CLEAR_KEY = "CLEAR_KEY";
+export const ADD_KEY = "ADD_KEY";
+
 
 export default class KeyActions {
     static click(dispatch, keyParamName) {
-        let keyName = keyParamName;
-        if(isNaN(keyParamName)) {
+        if(keyParamName === "C") {
             dispatch({
-                "type": "ADD_KEY",
-                keyName
+                "type": CLEAR_KEY
             });
         } else {
-            keyName = parseInt(keyName);
+            let keyName = isNaN(keyParamName) ? keyParamName : parseInt(keyParamName);
             dispatch({
-                "type": "ADD_KEY",
+                "type": ADD_KEY,
                 keyName
             });
         }

@@ -27,7 +27,7 @@ export default class KeyBoardComponent extends React.Component {
                     <KeyComponent ref="keyminus" dispatch = {this.props.dispatch} keyChar = {"-"}/>
                     <KeyComponent ref="keydivision" dispatch = {this.props.dispatch} keyChar = {"/"}/>
                     <KeyComponent ref="keymultiplication" dispatch = {this.props.dispatch} keyChar = {"*"}/>
-                    <KeyComponent ref="keyequal" dispatch = {this.props.dispatch} keyChar = {"="}/>
+                    <KeyComponent ref="clear" dispatch = {this.props.dispatch} keyChar = {"C"}/>
                 </div>
             </div>
         );
