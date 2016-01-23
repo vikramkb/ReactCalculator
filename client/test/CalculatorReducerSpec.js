@@ -1,7 +1,6 @@
 /* eslint no-unused-expressions:0, max-nested-callbacks: [2, 5], new-cap:0, no-magic-numbers:0 */
 "use strict";
 import { result } from "../src/CalculatorReducer.js";
-import Equation from "../src/Equation.js";
 import { assert } from "chai";
 import sinon from "sinon";
 
@@ -36,17 +35,10 @@ describe("CalculatorReducer", () => {
 
         describe("RESULT action", () => {
             it("Should return the new result as 3 for the the equation 1+2", () => {
-                let equation = new Equation([1, "+", 2]);
-                sinon.stub(Equation, "instance").withArgs([1, "+", 2]).returns(equation);
-                let equationResultMock = sinon.mock(equation).expects("result");
-                equationResultMock.returns(3);
                 let prevState = { "equation": "1+2" };
                 let action = { "type": "RESULT" };
                 let currentState = result(prevState, action);
                 assert.strictEqual(3, currentState.result);
-                equationResultMock.verify();
-                Equation.instance.restore();
-                equation.result.restore();
             });
         });
     });

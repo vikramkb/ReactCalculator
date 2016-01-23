@@ -2,20 +2,13 @@
 "use strict";
 var parameters = require("./config/parameters");
 var gulp = require("gulp");
-var sass = require("gulp-sass");
-var concat = require("gulp-concat");
 var browserify = require("gulp-browserify");
 var babelify = require("babelify"); //eslint-disable-line
 var runSequence = require("run-sequence");
 var mocha = require("gulp-mocha");
 var eslint = require("gulp-eslint");
-var exec = require("child_process").exec;
-var replace = require("gulp-replace");
-var argv = require("yargs").argv;
 var rename = require("gulp-rename");
 var del = require("del");
-var minify = require("gulp-minify");
-var cssnano = require("gulp-cssnano");
 require("babel/register");
 
 
@@ -57,3 +50,10 @@ gulp.task("client:build", function(callback) {
     runSequence("client:copy-resources", "client:build-sources", callback);
 });
 
+
+gulp.task("client:eslint", function() {
+    return gulp.src([parameters.client.srcPath + "/**/*.jsx", parameters.client.testPath + "/**/*.js"])
+        .pipe(eslint())
+        .pipe(eslint.format())
+        .pipe(eslint.failAfterError());
+});

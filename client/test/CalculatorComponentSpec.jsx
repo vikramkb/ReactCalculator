@@ -3,15 +3,13 @@ import { CalculatorComponent } from "../src/CalculatorComponent.jsx";
 import { assert } from "chai";
 import TestUtils from "react-addons-test-utils";
 import React from "react";
-import { List } from "immutable";
-
 
 describe("CalculatorComponent", () => {
     let calculatorComponent = null;
     before("CalculatorComponent", () => {
         let props = {
             "result": {
-                "equation": List(),
+                "equation": "",
                 "result": "0"
             }
         }
