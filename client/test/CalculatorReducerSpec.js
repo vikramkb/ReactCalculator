@@ -1,8 +1,9 @@
 /* eslint no-unused-expressions:0, max-nested-callbacks: [2, 5], new-cap:0, no-magic-numbers:0 */
 "use strict";
 import { result } from "../src/CalculatorReducer.js";
-import { List } from "immutable";
+import Equation from "../src/Equation.js";
 import { assert } from "chai";
+import sinon from "sinon";
 
 describe("CalculatorReducer", () => {
 
@@ -10,31 +11,42 @@ describe("CalculatorReducer", () => {
     });
 
     describe("equation", () => {
-        it("Should return the empty list as initial state and result as 0", () => {
+        it("Should return empty in result and equation as a initial state", () => {
             let initialState = undefined; //eslint-disable-line
             let currentState = result(initialState);
-            assert.strictEqual(0, currentState.equation.size);
-            assert.strictEqual("0", currentState.result);
+            assert.strictEqual("", currentState.equation);
+            assert.strictEqual("", currentState.result);
         });
 
         describe("ADD_KEY action", () => {
-            it("Should return the list with key 1", () => {
-                let initialState = { "equation": List(), "result": 0 };
+            it("Should return the new equation as 1", () => {
+                let initialState = { "equation": "", "result": "" };
                 let action = { "type": "ADD_KEY", "keyName": 1 };
                 let currentState = result(initialState, action);
-                assert.strictEqual(1, currentState.equation.size);
-                assert.strictEqual(1, currentState.equation.get(0));
-                assert.strictEqual(1, currentState.result);
+                assert.strictEqual("1", currentState.equation);
             });
 
-            it("Should return the list with key 1+2 with the previous state is 1+ and added key is 2", () => {
-                let prevState = { "equation": List([1, "+"]), "result": 1};
+            it("Should return the new equation as 1+2 with the prev state as 1+ and add key is 2", () => {
+                let prevState = { "equation": "1+", "result": 1 };
                 let action = { "type": "ADD_KEY", "keyName": 2 };
                 let currentState = result(prevState, action);
-                assert.notDeepEqual(prevState.equation.toArray(), currentState.equation.toArray());
-                assert.strictEqual(3, currentState.equation.size);
-                assert.deepEqual([1, "+", 2], currentState.equation.toArray());
+                assert.strictEqual("1+2", currentState.equation);
+            });
+        });
+
+        describe("RESULT action", () => {
+            it("Should return the new result as 3 for the the equation 1+2", () => {
+                let equation = new Equation([1, "+", 2]);
+                sinon.stub(Equation, "instance").withArgs([1, "+", 2]).returns(equation);
+                let equationResultMock = sinon.mock(equation).expects("result");
+                equationResultMock.returns(3);
+                let prevState = { "equation": "1+2" };
+                let action = { "type": "RESULT" };
+                let currentState = result(prevState, action);
                 assert.strictEqual(3, currentState.result);
+                equationResultMock.verify();
+                Equation.instance.restore();
+                equation.result.restore();
             });
         });
     });

@@ -5,13 +5,12 @@ import { assert } from "chai";
 import TestUtils from "react-addons-test-utils";
 import React from "react";
 import ReactDOM from "react-dom";
-import { List } from "immutable";
 
 describe("ResultComponent", () => {
     let props = null, keyBoardComponent = null;
     before("ResultComponent", () => {
         props = {
-            "equation": List([1, "+", 2]),
+            "equation": "1+2",
             "result": "3"
         };
         keyBoardComponent = TestUtils.renderIntoDocument(

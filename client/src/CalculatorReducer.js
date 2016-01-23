@@ -1,23 +1,37 @@
 /*eslint new-cap:0 */
 "use strict";
-import { List } from "immutable";
 import Equation from "./Equation.js";
-import { CLEAR_KEY, ADD_KEY } from "./KeyActions.js";
+import { CLEAR_KEY, ADD_KEY, RESULT } from "./KeyActions.js";
 
-export function result(prevState = { "equation": List(), "result": "0" }, action = {}) {
+export function result(currState = { "equation": "", "result": "" }, action = {}) {
     let newState = {};
     switch(action.type) {
     case ADD_KEY:
-        newState.equation = prevState.equation.push(action.keyName);
-        if(isNaN(action.keyName)) {
-            newState.result = prevState.result;
+        newState.equation = currState.equation + action.keyName;
+        newState.result = currState.result;
+        return newState;
+
+    case CLEAR_KEY:
+        return { "equation": "", "result": "" };
+
+    case RESULT:
+        newState.equation = currState.equation;
+        let equationArray = getArray(currState.equation);
+        if(equationArray.length > 0 && !isNaN(equationArray[equationArray.length - 1])) {
+            newState.result = Equation.instance(equationArray).result();
         } else {
-            newState.result = new Equation(newState.equation.toArray()).result();
+            newState.result = currState.result;
         }
         return newState;
-    case CLEAR_KEY:
-        return { "equation": List(), "result": "0" };
+
     default :
-        return prevState;
+        return currState;
     }
+}
+
+
+function getArray(equationStr) {
+    return equationStr.match(/(\d+|\+|-|\/|\*)/g).map((element) => {
+        return isNaN(element) ? element : parseInt(element);
+    });
 }

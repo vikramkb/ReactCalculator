@@ -21,7 +21,7 @@ CalculatorComponent.displayName = "CalculatorComponent";
 
 CalculatorComponent.propTypes = {
     "result": PropTypes.string.isRequired,
-    "equation": PropTypes.object.isRequired,
+    "equation": PropTypes.string.isRequired,
     "dispatch": PropTypes.func.isRequired
 };
 
