@@ -1,0 +1,12 @@
+1> Install node js
+2> install gulp as global node module
+   node install -g gulp 
+3> Go to the project directory
+4> install node modules
+   npm install
+5> Build the code. Code will be in dist folder
+   gulp client:build
+6> Run the unit test cases
+   gulp client:test
+6> Opne dist/index.html to see the calculator program
+
