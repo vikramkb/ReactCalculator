@@ -1,6 +1,8 @@
+Technologies: React, Redux, Broserify, babel for ES6, gulp
+
 1> Install node js
 2> install gulp as global node module
-   node install -g gulp 
+   npm install -g gulp 
 3> Go to the project directory
 4> install node modules
    npm install
